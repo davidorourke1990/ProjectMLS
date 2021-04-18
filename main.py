@@ -3,7 +3,7 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-dataset = pd.read_csv("MLS19.csv")
+dataset = pd.read_csv("MLS17.csv")
 
 ##print the head
 print(dataset.head())
