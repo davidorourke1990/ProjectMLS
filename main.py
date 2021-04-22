@@ -41,4 +41,4 @@ print(MLS19Alphabet)
 
 #if i wanted to sort by salary
 MLS19_Salary = MLS19.sort_values("Salary", ascending=False)
-print(MLS19_Salary.head())
+print(MLS19_Salary.head(10))
