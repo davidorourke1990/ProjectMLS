@@ -39,6 +39,8 @@ print(MLS19club)
 MLS19Alphabet = MLS19.sort_values(["Club", "Last_Name"])
 print(MLS19Alphabet)
 
-#if i wanted to sort by salary
+#if i wanted to sort by salary with the top 10
 MLS19_Salary = MLS19.sort_values("Salary", ascending=False)
 print(MLS19_Salary.head(10))
+
+
