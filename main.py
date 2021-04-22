@@ -36,8 +36,8 @@ MLS19club = MLS19.sort_values("Club")
 print(MLS19club)
 
 ##sort my multiple variables
-MLS19Aplhabet = MLS19.sort_values(["Club", "First_Name"])
-print(MLS19Aplhabet)
+MLS19Alphabet = MLS19.sort_values(["Club", "Last_Name"])
+print(MLS19Alphabet)
 
 #if i wanted to sort by salary
 MLS19_Salary = MLS19.sort_values("Salary", ascending=False)
