@@ -92,7 +92,7 @@ print(Team_Summary)
 print(MLS19["Position"].value_counts())
 
 #Salaries and Guaranteed comp according to playing positions
-Salary_Position = MLS19.groupby("Position").mean()
+Salary_Position = MLS19_Salary.groupby("Position").mean()
 print(Salary_Position)
 
 #Sort the Salary postion by position on pitch
@@ -113,4 +113,6 @@ plt.ylabel('Salaries')
 plt.title('Clubs & Salaries')
 plt.show()
 
+null_data = MLS19[MLS19.isnull().any(axis=1)]
+print(null_data)
 
