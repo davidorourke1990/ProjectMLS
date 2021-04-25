@@ -68,3 +68,24 @@ print(MLS19.head())
 #Check who has the largest difference in Salary and Guaranteed Compensation
 MLS19Comp = MLS19.sort_values("Comp_Diff", ascending=False)
 print(MLS19Comp.head(10))
+
+#summarize numerical data
+##Average Salary
+print(MLS19_Salary.mean())
+
+##median number
+print(MLS19_Salary.median())
+
+##Standard Deviation
+print(MLS19_Salary.std())
+
+##mode
+print(Salary_Column2.mode())
+
+#Group by Club and Salaries (minimum, max and Total per club)
+Team_Summary = MLS19_Salary.groupby("Club")["Salary"].agg([min, max, sum])
+print(Team_Summary)
+
+
+
+
