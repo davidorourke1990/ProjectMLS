@@ -35,12 +35,36 @@ print(MLS19.describe())
 MLS19club = MLS19.sort_values("Club")
 print(MLS19club)
 
-##sort my multiple variables
+##sorting by multiple variables
 MLS19Alphabet = MLS19.sort_values(["Club", "Last_Name"])
 print(MLS19Alphabet)
 
-#if i wanted to sort by salary with the top 10
+#sort by salary in ascending order and show top 10 highest earners
 MLS19_Salary = MLS19.sort_values("Salary", ascending=False)
 print(MLS19_Salary.head(10))
+#show the 10 lowest earners
+print(MLS19_Salary.tail(10))
 
+#subsetting columns
+Salary_Column1 = MLS19_Salary["Salary"]
+print(Salary_Column1)
 
+#subsetting multiple columns to get just last name and Salary
+Salary_Column2 = MLS19_Salary[["Last_Name", "Salary",]]
+print(Salary_Column2)
+
+#Obtain the players earning over 1million $ only
+Salary_Column3 = Salary_Column2[Salary_Column2["Salary"] > 1000000.00]
+print(Salary_Column3)
+
+#Number of players earning over 1million $
+Salary_Column3.count()
+print(Salary_Column3.count())
+
+#Create a new Column to find out difference in Salary and Guaranteed Compensation
+MLS19["Comp_Diff"] = MLS19["Guaranteed_Comp"] - MLS19["Salary"]
+print(MLS19.head())
+
+#Check who has the largest difference in Salary and Guaranteed Compensation
+MLS19Comp = MLS19.sort_values("Comp_Diff", ascending=False)
+print(MLS19Comp.head(10))
