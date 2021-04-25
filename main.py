@@ -53,6 +53,11 @@ print(Salary_Column1)
 Salary_Column2 = MLS19_Salary[["Last_Name", "Salary",]]
 print(Salary_Column2)
 
+##max salary
+Salary_Column2["Salary"].max()
+
+#minimum salary
+
 #Obtain the players earning over 1million $ only
 Salary_Column3 = Salary_Column2[Salary_Column2["Salary"] > 1000000.00]
 print(Salary_Column3)
@@ -79,13 +84,33 @@ print(MLS19_Salary.median())
 ##Standard Deviation
 print(MLS19_Salary.std())
 
-##mode
-print(Salary_Column2.mode())
-
 #Group by Club and Salaries (minimum, max and Total per club)
 Team_Summary = MLS19_Salary.groupby("Club")["Salary"].agg([min, max, sum])
 print(Team_Summary)
 
+#Number of players according to their positions
+print(MLS19["Position"].value_counts())
 
+#Salaries and Guaranteed comp according to playing positions
+Salary_Position = MLS19.groupby("Position").mean()
+print(Salary_Position)
+
+#Sort the Salary postion by position on pitch
+
+
+Salary_Position.plot(kind="barh", title="Salary by Playing Position 2019")
+plt.show()
+
+#plot sum of each club salary on bar chart
+Club_Position = MLS19.groupby("Club").mean()
+
+plt.figure(figsize=(12,8))
+sns.set_style("whitegrid")
+sns.barplot(x=Club_Position.index, y=Club_Position["Salary"])
+plt.xticks(rotation= 80)
+plt.xlabel('Clubs')
+plt.ylabel('Salaries')
+plt.title('Clubs & Salaries')
+plt.show()
 
 
