@@ -157,3 +157,13 @@ plt.ylabel('Salaries')
 plt.title('Average Salary per Club 2019')
 plt.show()
 
+#for comparison find MLS salaries in 2009
+fig, ax = plt.subplots()
+
+ax.bar(Club_Position.index, Club_Position["Salary"])
+ax.bar(Club_Position.index, Club_Position["Guaranteed_Comp"], bottom=Club_Position["Salary"])
+ax.set_xticklabels(Club_Position.index, rotation=75)
+ax.set_ylabel("$$$")
+plt.show()
+
+
