@@ -63,12 +63,12 @@ print(MLS19["Salary"].max())
 print(MLS19["Salary"].min())
 
 #Obtain the players earning over 1million $ only
-Salary_Millionaire = MLS19_Salary[MLS19_Salary["Salary"] > 1000000.00]
-print(Salary_Millionaire)
+Salary_Millionaire19 = MLS19_Salary[MLS19_Salary["Salary"] > 1000000.00]
+print(Salary_Millionaire19)
 
 #Number of players earning over 1million $
-Salary_Millionaire.count()
-print(Salary_Millionaire.count())
+Salary_Millionaire19.count()
+print(Salary_Millionaire19.count())
 
 #Create a new Column to find out difference in Salary and Guaranteed Compensation
 MLS19["Comp_Diff"] = MLS19["Guaranteed_Comp"] - MLS19["Salary"]
@@ -157,7 +157,6 @@ plt.ylabel('Salaries')
 plt.title('Average Salary per Club 2019')
 plt.show()
 
-#for comparison find MLS salaries in 2009
 fig, ax = plt.subplots()
 
 ax.bar(Club_Position.index, Club_Position["Salary"])
@@ -165,5 +164,39 @@ ax.bar(Club_Position.index, Club_Position["Guaranteed_Comp"], bottom=Club_Positi
 ax.set_xticklabels(Club_Position.index, rotation=75)
 ax.set_ylabel("$$$")
 plt.show()
+
+##For comparison find MLS salaries in 2014 (5 year difference)
+#import a new dataset of MLS salaries from 2014
+MLS14 = pd.read_csv("MLS14.csv")
+print(MLS14)
+
+##describe the dataset
+MLS14.describe()
+print(MLS14.describe())
+
+#subsetting multiple columns to get just last name and Salary
+MLS14_Salary = MLS14[["Last_Name", "Salary",]]
+print(MLS14_Salary)
+
+##max salary
+print(MLS14["Salary"].max())
+
+#minimum salary
+print(MLS14["Salary"].min())
+
+#Obtain the players earning over 1million $ only
+Salary_Millionaire14 = MLS14[MLS14["Salary"] > 1000000.00]
+print(Salary_Millionaire14)
+
+#Number of players earning over 1million $
+Salary_Millionaire14.count()
+print(Salary_Millionaire14.count())
+
+#Create a new Column to find out difference in Salary and Guaranteed Compensation
+MLS14["Comp_Diff"] = MLS14["Guaranteed_Comp"] - MLS14["Salary"]
+print(MLS14.head())
+
+MLS14_Salary = MLS14.sort_values("Salary", ascending=False)
+print(MLS14_Salary.head(10))
 
 
