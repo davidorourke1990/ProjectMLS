@@ -56,11 +56,17 @@ print(Salary_Column1)
 MLS19_Salary = MLS19_Salary[["Last_Name", "Salary",]]
 print(MLS19_Salary)
 
-##max salary
+##max salary amount
 print(MLS19["Salary"].max())
 
-#minimum salary
+#max total earnings and all details of player
+print(MLS19[MLS19["Guaranteed_Comp"] == MLS19["Guaranteed_Comp"].max()])
+
+##minimum salary amount
 print(MLS19["Salary"].min())
+
+#minimum total earnings and all details of player
+print(MLS19[MLS19["Guaranteed_Comp"] == MLS19["Guaranteed_Comp"].min()])
 
 #Obtain the players earning over 1million $ only
 Salary_Millionaire19 = MLS19_Salary[MLS19_Salary["Salary"] > 1000000.00]
@@ -78,7 +84,14 @@ print(MLS19.head())
 MLS19Comp = MLS19.sort_values("Comp_Diff", ascending=False)
 print(MLS19Comp.head(10))
 
-#summarize numerical data
+#Find the players who have received a different Guaranteed compensation to salary
+MLS19CompPlus = MLS19Comp[MLS19Comp["Comp_Diff"] > 1.00]
+print(MLS19CompPlus)
+
+#Print the top 10 players with highest difference in salary and guaranteed compensation
+print(MLS19CompPlus.head())
+
+#summarize numerical data of Salary
 ##Average Salary
 print(MLS19_Salary.mean())
 
@@ -96,7 +109,7 @@ print(Team_Summary)
 null_data = MLS19[MLS19.isnull().any(axis=1)]
 print(null_data)
 
-#show whoe dataset and indicate tha values that are missing
+#show whole dataset and indicate tha values that are missing
 print(MLS19.isna())
 
 #show overview if there is any data misisng in any of the columns
@@ -137,11 +150,8 @@ print(MLS19["Position"].value_counts())
 Salary_Position = MLS19.groupby("Position").mean()
 print(Salary_Position)
 
-#Sort the Salary postion by position on pitch
-
-
 #plot the average salaries by the position of each player
-Salary_Position.plot(kind="barh", title="Salary by Playing Position 2019")
+Salary_Position.plot(kind="barh", y=["Salary", "Guaranteed_Comp"], title="Salary by Playing Position 2019")
 plt.show()
 
 #plot average spend of each club on salary on bar chart
@@ -157,6 +167,7 @@ plt.ylabel('Salaries')
 plt.title('Average Salary per Club 2019')
 plt.show()
 
+#Plot the salary and guranteed comp on one bar per club
 fig, ax = plt.subplots()
 
 ax.bar(Club_Position.index, Club_Position["Salary"])
@@ -164,6 +175,8 @@ ax.bar(Club_Position.index, Club_Position["Guaranteed_Comp"], bottom=Club_Positi
 ax.set_xticklabels(Club_Position.index, rotation=75)
 ax.set_ylabel("$$$")
 plt.show()
+
+
 
 ##For comparison find MLS salaries in 2014 (5 year difference)
 #import a new dataset of MLS salaries from 2014
@@ -174,8 +187,12 @@ print(MLS14)
 MLS14.describe()
 print(MLS14.describe())
 
+#sort by Salary
+MLS14_Salary = MLS14.sort_values("Salary", ascending=False)
+print(MLS14_Salary)
+
 #subsetting multiple columns to get just last name and Salary
-MLS14_Salary = MLS14[["Last_Name", "Salary",]]
+MLS14_Salary = MLS14_Salary[["Last_Name", "Salary",]]
 print(MLS14_Salary)
 
 ##max salary
@@ -185,7 +202,7 @@ print(MLS14["Salary"].max())
 print(MLS14["Salary"].min())
 
 #Obtain the players earning over 1million $ only
-Salary_Millionaire14 = MLS14[MLS14["Salary"] > 1000000.00]
+Salary_Millionaire14 = MLS14_Salary[MLS14_Salary["Salary"] > 1000000.00]
 print(Salary_Millionaire14)
 
 #Number of players earning over 1million $
@@ -196,7 +213,58 @@ print(Salary_Millionaire14.count())
 MLS14["Comp_Diff"] = MLS14["Guaranteed_Comp"] - MLS14["Salary"]
 print(MLS14.head())
 
-MLS14_Salary = MLS14.sort_values("Salary", ascending=False)
-print(MLS14_Salary.head(10))
+#Salaries and Guaranteed comp according to playing positions
+Salary_Position14 = MLS14.groupby("Position").mean()
+print(Salary_Position14)
 
+#plot the average salaries by the position of each player
+Salary_Position14.plot(kind="barh", y=["Salary", "Guaranteed_Comp"], title="Salary by Playing Position 2014")
+plt.show()
 
+#plot average spend of each club on salary on bar chart
+Club_Position14 = MLS14.groupby("Club").mean()
+Club_Position14.sort_values(by = 'Salary', ascending = False,inplace=True)
+Club_Position14 = Club_Position14.iloc[1:, :]
+print(Club_Position14)
+
+plt.figure(figsize=(12,8))
+sns.barplot(x=Club_Position14.index, y=Club_Position14["Salary"])
+plt.xticks(rotation= 80)
+plt.xlabel('Clubs')
+plt.ylabel('Salaries')
+plt.title('Average Salary per Club 2014')
+plt.show()
+
+#plot the data of the players with salaries over 1million in both datasets
+Salary_Millionaire14 = Salary_Millionaire14.sort_values("Salary", ascending=True)
+Salary_Millionaire19 = Salary_Millionaire19.sort_values("Salary", ascending=True)
+
+Salary_Millionaire14.plot(x="Last_Name", y="Salary", kind="line", marker="*", linestyle="--", rot=45)
+ax.set_xlabel("Players")
+ax.set_ylabel("Salary$")
+plt.title('Players Earning over $1million per year')
+plt.show()
+
+Salary_Millionaire19.plot(x="Last_Name", y='Salary', kind="line", marker="o", color="r", rot=45)
+ax.set_xlabel("Players")
+ax.set_ylabel("Salary$")
+plt.title('Players Earning over $1million per year')
+plt.show()
+
+#scatter plot
+Salary_Millionaire14 = Salary_Millionaire14.tail(10)
+print(Salary_Millionaire14)
+
+Salary_Millionaire19 = Salary_Millionaire19.tail(10)
+print(Salary_Millionaire19)
+
+fig, ax = plt.subplots()
+ax.plot(Salary_Millionaire14["Last_Name"], Salary_Millionaire14["Salary"], color='b')
+ax.plot(Salary_Millionaire19["Last_Name"], Salary_Millionaire19["Salary"], color='r')
+ax.set_xlim(0, 20)
+plt.show()
+
+fig, ax = plt.subplots(2, 1)
+ax[0].plot(Salary_Millionaire14["Last_Name"], Salary_Millionaire14["Salary"], color='b')
+ax[1].plot(Salary_Millionaire19["Last_Name"], Salary_Millionaire19["Salary"], color='r')
+plt.show()
