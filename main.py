@@ -224,6 +224,7 @@ print(Salary_Millionaire14)
 Salary_Millionaire14.count()
 print(Salary_Millionaire14.count())
 
+
 #Create a new Column to find out difference in Salary and Guaranteed Compensation
 MLS14["Comp_Diff"] = MLS14["Guaranteed_Comp"] - MLS14["Salary"]
 print(MLS14.head())
@@ -283,3 +284,10 @@ fig, ax = plt.subplots(2, 1)
 ax[0].plot(Salary_Millionaire14["Last_Name"], Salary_Millionaire14["Salary"], color='b')
 ax[1].plot(Salary_Millionaire19["Last_Name"], Salary_Millionaire19["Salary"], color='r')
 plt.show()
+
+
+DAVE = pd.concat([Salary_Millionaire19, Salary_Millionaire14], axis=1)
+print(DAVE)
+
+DAVE1 = pd.concat([Salary_Millionaire19, Salary_Millionaire14])
+print(DAVE1)
