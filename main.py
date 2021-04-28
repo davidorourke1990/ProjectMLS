@@ -31,6 +31,19 @@ print(MLS19.index)
 MLS19.describe()
 print(MLS19.describe())
 
+#creating a dictionary example
+Dict1 = {'First_Name':'Zlatan', 'Last_Name':'Ibrahimovic'}
+print(Dict1)
+
+Dict2 = dict([['DC United','DCU'], ['Philadelphia Union','PHU'], ['Toronto FC','TFC']])
+print(Dict2)
+
+Club_Symbols1 = Dict2.get('TFC')
+print(Club_Symbols1)
+
+Club_Symbols1 = Dict2.get('Philadelphia Union')
+print(Club_Symbols1)
+
 ##if i wanted to sort by clubs in alphabetical order
 MLS19club = MLS19.sort_values("Club")
 print(MLS19club)
@@ -57,13 +70,13 @@ MLS19_Salary = MLS19_Salary[["Last_Name", "Salary",]]
 print(MLS19_Salary)
 
 ##max salary amount
-print(MLS19["Salary"].max())
+print(MLS19_Salary["Salary"].max())
 
 #max total earnings and all details of player
 print(MLS19[MLS19["Guaranteed_Comp"] == MLS19["Guaranteed_Comp"].max()])
 
 ##minimum salary amount
-print(MLS19["Salary"].min())
+print(MLS19_Salary["Salary"].min())
 
 #minimum total earnings and all details of player
 print(MLS19[MLS19["Guaranteed_Comp"] == MLS19["Guaranteed_Comp"].min()])
@@ -157,6 +170,7 @@ plt.show()
 #plot average spend of each club on salary on bar chart
 Club_Position = MLS19.groupby("Club").mean()
 Club_Position.sort_values(by = 'Salary', ascending = False,inplace=True)
+print(Club_Position)
 
 plt.figure(figsize=(12,8))
 sns.set_style("whitegrid")
@@ -176,7 +190,8 @@ ax.set_xticklabels(Club_Position.index, rotation=75)
 ax.set_ylabel("$$$")
 plt.show()
 
-
+Club_Position = Club_Position.iloc[-2:, -1]
+print(Club_Position)
 
 ##For comparison find MLS salaries in 2014 (5 year difference)
 #import a new dataset of MLS salaries from 2014
