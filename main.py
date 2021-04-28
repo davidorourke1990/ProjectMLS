@@ -267,27 +267,37 @@ ax.set_ylabel("Salary$")
 plt.title('Players Earning over $1million per year')
 plt.show()
 
-#scatter plot
+#line plot
 Salary_Millionaire14 = Salary_Millionaire14.tail(10)
 print(Salary_Millionaire14)
 
 Salary_Millionaire19 = Salary_Millionaire19.tail(10)
 print(Salary_Millionaire19)
 
-fig, ax = plt.subplots()
-ax.plot(Salary_Millionaire14["Last_Name"], Salary_Millionaire14["Salary"], color='b')
-ax.plot(Salary_Millionaire19["Last_Name"], Salary_Millionaire19["Salary"], color='r')
-ax.set_xlim(0, 20)
-plt.show()
-
 fig, ax = plt.subplots(2, 1)
 ax[0].plot(Salary_Millionaire14["Last_Name"], Salary_Millionaire14["Salary"], color='b')
 ax[1].plot(Salary_Millionaire19["Last_Name"], Salary_Millionaire19["Salary"], color='r')
 plt.show()
 
+#Merging on the left
+Merge1 = Salary_Millionaire19.merge(Salary_Millionaire14, on="Last_Name", how='left')
+print(Merge1)
 
-DAVE = pd.concat([Salary_Millionaire19, Salary_Millionaire14], axis=1)
-print(DAVE)
+#Merging on the outer joint
+Merge2 = Salary_Millionaire19.merge(Salary_Millionaire14, on="Last_Name", how='outer')
+print(Merge2)
+Merge2 = Merge2.sort_values("Last_Name", ascending=False)
+print(Merge2)
 
-DAVE1 = pd.concat([Salary_Millionaire19, Salary_Millionaire14])
-print(DAVE1)
+#Showing a common player featuring in both lists
+MLSMerge = Salary_Millionaire19.merge(Salary_Millionaire14, on="Last_Name")
+print(MLSMerge)
+
+#Concentating table with two data frames
+Concat = pd.concat([Salary_Millionaire19, Salary_Millionaire14], axis=1)
+print(Concat)
+
+Concat2 = pd.concat([Salary_Millionaire19, Salary_Millionaire14])
+print(Concat2.head(10))
+
+#Thankyou
